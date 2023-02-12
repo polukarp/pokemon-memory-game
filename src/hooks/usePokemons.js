@@ -1,10 +1,11 @@
 import { useStore } from 'effector-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { setPokemons, $pokemonsCombined } from '../store/pokemons';
 
 export const usePokemons = (level = 1) => {
 	const API_URL = 'https://pokeapi.co/api/v2/';
 	const { pokemons, loading } = useStore($pokemonsCombined);
+	const [error, setError] = useState(null);
 
 	useEffect(() => {
 		const MAX_POKEMONS = 1279;
@@ -26,8 +27,11 @@ export const usePokemons = (level = 1) => {
 					return newPokemon;
 				});
 				setPokemons(newPokemons);
+			})
+			.catch((err) => {
+				console.log(err);
 			});
 	}, [level]);
 
-	return { pokemons, setPokemons, loading };
+	return { pokemons, setPokemons, loading, error };
 };
