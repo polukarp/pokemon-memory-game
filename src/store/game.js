@@ -14,14 +14,17 @@ const $levelCounterText = $levelCounter.map((n) => `current value = ${n}`);
 
 export const setGameOver = createEvent();
 export const playAgain = createEvent();
+
 export const $isGameOver = $levelCounter
 	.map((n) => n > 10)
 	.on(setGameOver, () => {
 		resetLevels();
-		resetScore();
 		return true;
 	})
-	.on(playAgain, () => false);
+	.on(playAgain, () => {
+		resetScore();
+		return false;
+	});
 
 export const $levelCounterCombined = combine({
 	level: $levelCounter,

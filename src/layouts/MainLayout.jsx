@@ -8,7 +8,8 @@ const MainLayout = ({ children }) => {
 	return (
 		<>
 			<Navbar currentScore={current} bestScore={best} />
-			<main className="px-2">{children}</main>
+
+			<main className="px-2 md:px-4">{children}</main>
 		</>
 	);
 };
